@@ -1,0 +1,9 @@
+.sahovnica{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sahovnica div{
+    flex-basis: 33%;
+    height:50px;
+}
