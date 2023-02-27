@@ -20,7 +20,7 @@ const Sahovnica = (props: Props) => {
     <div className="sahovnica">
         {polja.map(
             (polje, index)=>{
-                return <Polje boja={polje} modificirajStanje={()=>promijeniJednoPolje(index)}/>
+                return <Polje key={index} boja={polje} modificirajStanje={()=>promijeniJednoPolje(index)}/>
             }
             )
         }
