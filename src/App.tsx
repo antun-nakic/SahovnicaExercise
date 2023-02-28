@@ -3,11 +3,13 @@ import React, {useState} from 'react';
 import Sahovnica from './components/Sahovnica';
 import Sat from './components/Sat';
 import CustomSat from './components/CustomSat';
+import VjezbamForme from './components/VjezbamForme';
 import './App.css';
 
 function App() {
   const [sakrij, setSakrij] = useState(false);
   const [customSat, setCustomSat] = useState(0);
+  const [prezime,setPrezime]= useState("");
 
   const handleClick = (noviCustomSat: any, e: any) =>{
     console.log(`${e.toString()} + ${noviCustomSat}`)
@@ -35,6 +37,7 @@ function App() {
         }
         )}
       </ul>
+      <VjezbamForme prezime={prezime} changePrezime={setPrezime} />
     </div>
   );
 }
