@@ -1,5 +1,4 @@
-import { type } from 'os'
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 
 type Props = {
     prezime: string,
@@ -11,19 +10,31 @@ type StateForma = {
     lastName?: string,
     email?: string,
     password?: string,
-    confirmPassword?: string
+    confirmPassword?: string,
+    pravila: boolean
 }
 
 const VjezbamForme = ({prezime, changePrezime}: Props) => {
     const [ime,setIme] = useState("");
-    const [forma,setForma] = useState<StateForma>({});
+    const [forma,setForma] = useState<StateForma>({pravila: false});
+    const mojaReferenca1 = useRef<HTMLInputElement>(null);
+    const mojaReferenca2 = useRef<HTMLInputElement>(null);
 
     const handleChange = (e: React.SyntheticEvent )=>{
         const elem = e.target as HTMLInputElement;
 
+        const value = (elem.type === "checkbox") ? elem.checked : elem.value;
+
         setForma((old)=>{
-            return {...old, [elem.id]: elem.value}
+            return {...old, [elem.id]: value}
         });
+    }
+
+    const handleSubmit = () => {
+        if(mojaReferenca1.current?.value?.length  && mojaReferenca1.current?.value?.length < 20)
+        {
+            return 1;
+        }
     }
 
   return (
@@ -56,6 +67,20 @@ const VjezbamForme = ({prezime, changePrezime}: Props) => {
             <label className="form__label" htmlFor="confirmPassword">Confirm Password </label>
             <input className="form__input" onChange={(e)=>handleChange(e)} value={forma.confirmPassword || ""} type="password" id="confirmPassword" placeholder="Confirm Password"/>
         </div>
+        <label>
+          Upoznat sam sa pravilima:
+          <input
+            name="pravila"
+            type="checkbox"
+            id="pravila"
+            checked={forma.pravila}
+            onChange={(e)=>handleChange(e)} />
+        </label>
+    </form>
+    <form onSubmit={(e)=>handleSubmit()}>
+        unesi ime: <input type="text" name="mojeIme" ref={mojaReferenca1} ></input>
+        unesi prezime: <input type="text" name="mojePrezime" ref={mojaReferenca2}></input>
+        <input type="submit"></input>
     </form>
     </div>
   )
